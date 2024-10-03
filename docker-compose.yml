@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+    mysql-web-framework-tailwind:
+        image: mysql:8.0
+        container_name: mysql-web-framework-tailwind
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: laravel
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./mysql:/var/lib/mysql
+
+    phpmyadmin-web-framework-tailwind:
+        image: phpmyadmin/phpmyadmin
+        container_name: phpmyadmin-web-framework-tailwind
+        environment:
+            PMA_HOST: mysql-web-framework-tailwind
+            PMA_PORT: 3306
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - "8080:80"
+        depends_on:
+            - mysql-web-framework-tailwind
