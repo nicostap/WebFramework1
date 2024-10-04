@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    @include('base.navbar') 
     @yield('content')
     @vite('resources/js/app.js')
 </body>

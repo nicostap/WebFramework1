@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
+use App\Models\Events;
+use App\Http\Controllers\EventsController;
+use App\Http\Controllers\OrganizersController;
+use App\Http\Controllers\EventCategoriesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,5 +18,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $events = Events::all();
+    return view('home', [
+        'events' => $events,
+    ]);
 });
+
+Route::resource('events', EventsController::class);
+Route::resource('organizers', OrganizersController::class);
+Route::resource('event_categories', EventCategoriesController::class);

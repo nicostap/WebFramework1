@@ -1,18 +1,22 @@
 <?php
 
 namespace Database\Seeders;
-
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
+     *
+     * @return void
      */
-    public function run(): void
+    public function run()
     {
-        
+        $this->call([
+            OrganizersSeeder::class,
+            EventCategoriesSeeder::class,
+            EventsSeeder::class,
+            UsersSeeder::class,
+        ]);
     }
 }
