@@ -43,10 +43,11 @@ class EventCategoriesController extends Controller
         return $category;
     }
 
-    public function edit(EventCategories $eventCategory)
+    public function edit($id)
     {
+        $category = EventCategories::findOrFail($id);
         return view("event_categories.form", [
-            'eventCategory' => $eventCategory,
+            'category' => $category,
         ]);
     }
 

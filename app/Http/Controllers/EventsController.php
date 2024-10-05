@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\EventCategories;
+use App\Models\Organizers;
 use Carbon\Carbon;
 use App\Http\Requests\StoreEventsRequest;
 use App\Http\Requests\UpdateEventsRequest;
@@ -20,7 +22,12 @@ class EventsController extends Controller
 
     public function create()
     {
-        return view("events.form");
+        $organizers = Organizers::all();
+        $categories = EventCategories::all();
+        return view("events.form", [
+            'organizers' => $organizers,
+            'event_categories' => $categories,
+        ]);
     }
 
     public function store(StoreEventsRequest $request)
@@ -42,13 +49,18 @@ class EventsController extends Controller
     public function show($id)
     {
         $event = Events::findOrFail($id);
-        return view('events.event', compact('event'));
+        return view('events.event', ['event' => $event]);
     }
 
-    public function edit(Events $event)
+    public function edit($id)
     {
+        $event = Events::findOrFail($id);
+        $organizers = Organizers::all();
+        $categories = EventCategories::all();
         return view("events.form", [
             'event' => $event,
+            'organizers' => $organizers,
+            'event_categories' => $categories,
         ]);
     }
 

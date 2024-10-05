@@ -42,12 +42,13 @@ class OrganizersController extends Controller
     public function show($id)
     {
         $organizer = Organizers::findOrFail($id);
-        return view('organizers.organizer', compact('organizer'));
+        return view('organizers.organizer', ['organizer' => $organizer]);
     }
 
 
-    public function edit(Organizers $organizer)
+    public function edit($id)
     {
+        $organizer = Organizers::findOrFail($id);
         return view("organizers.form", [
             'organizer' => $organizer,
         ]);

@@ -6,14 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Laravel</title>
-    @vite('resources/css/app.css')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @yield('css')
 </head>
 
 <body>
-    @include('base.navbar') 
-    @yield('content')
-    @vite('resources/js/app.js')
+    @include('base.navbar')
+    <div class="m-20">
+        @yield('content')
+    </div>
+    @yield('scripts')
+    @include('base.alert')
 </body>
 
 </html>
