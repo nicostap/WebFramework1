@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
+| be assigned to the 'web' middleware group. Make something great!
 |
 */
 
 Route::get('/', function () {
-    $events = Events::all();
+    $events = Events::active()->get();
     return view('home', [
         'events' => $events,
     ]);

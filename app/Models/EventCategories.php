@@ -13,10 +13,16 @@ class EventCategories extends Model
 
     protected $fillable = [
         'name',
+        'active'
     ];
 
     public function events()
     {
         return $this->hasMany(Events::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
     }
 }

@@ -12,7 +12,7 @@ class EventCategoriesController extends Controller
 {
     public function index()
     {
-        $categories = EventCategories::all();
+        $categories = EventCategories::active()->orderBy('name')->get();
         return view('event_categories.index', [
             'categories' => $categories,
         ]);
@@ -20,44 +20,38 @@ class EventCategoriesController extends Controller
 
     public function create()
     {
-        return view("event_categories.form");
+        return view('event_categories.form');
     }
 
     public function store(StoreEventCategoriesRequest $request)
     {
-        EventCategories::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+        $validated = $request->validate($request->rules(), $request->params());
+
+        EventCategories::create($validated);
 
         FacadesSession::flash('message', 'Event category successfully created!');
         FacadesSession::flash('alert-class', 'success');
         return redirect()->route('event_categories.index');
     }
 
-    public function show($id)
+    public function show(EventCategories $eventCategory)
     {
-        $category = EventCategories::findOrFail($id);
-        return $category;
+        return $eventCategory;
     }
 
-    public function edit($id)
+    public function edit(EventCategories $eventCategory)
     {
-        $category = EventCategories::findOrFail($id);
-        return view("event_categories.form", [
-            'category' => $category,
+        return view('event_categories.form', [
+            'category' => $eventCategory,
         ]);
     }
 
     public function update(UpdateEventCategoriesRequest $request, EventCategories $eventCategory)
     {
-        $eventCategory->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'updated_at' => Carbon::now(),
-        ]);
+        $validated = $request->validate($request->rules(), $request->params());
+        $validated['updated_at'] = Carbon::now();
+
+        $eventCategory->update($validated);
 
         FacadesSession::flash('message', 'Event category successfully updated!');
         FacadesSession::flash('alert-class', 'success');
@@ -66,7 +60,7 @@ class EventCategoriesController extends Controller
 
     public function destroy(EventCategories $eventCategory)
     {
-        $eventCategory->delete();
+        $eventCategory->update(['active' => 0, 'updated_at' => Carbon::now()]);
 
         FacadesSession::flash('message', 'Event category successfully deleted!');
         FacadesSession::flash('alert-class', 'success');

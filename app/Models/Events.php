@@ -20,6 +20,7 @@ class Events extends Model
         'tags',
         'organizer_id',
         'event_category_id',
+        'active'
     ];
 
     protected $casts = [
@@ -35,5 +36,10 @@ class Events extends Model
     public function eventCategory()
     {
         return $this->belongsTo(EventCategories::class);
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
     }
 }

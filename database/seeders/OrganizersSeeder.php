@@ -15,11 +15,11 @@ class OrganizersSeeder extends Seeder
         $faker = Faker::create();
 
         DB::table('organizers')->insert([
-            ['name' => 'Alpha Events', 'description' => $faker->text(), 'facebook_link' => $faker->url(), 'x_link' => $faker->url(), 'website_link' => $faker->url()],
-            ['name' => 'Beta Organizers', 'description' => $faker->text(), 'facebook_link' => $faker->url(), 'x_link' => $faker->url(), 'website_link' => $faker->url()],
-            ['name' => 'Gamma Productions', 'description' => $faker->text(), 'facebook_link' => $faker->url(), 'x_link' => $faker->url(), 'website_link' => $faker->url()],
-            ['name' => 'Delta Organizers', 'description' => $faker->text(), 'facebook_link' => $faker->url(), 'x_link' => $faker->url(), 'website_link' => $faker->url()],
-            ['name' => 'Omega Events', 'description' => $faker->text(), 'facebook_link' => $faker->url(), 'x_link' => $faker->url(), 'website_link' => $faker->url()],
+            ['name' => 'Southern Sydney University', 'description' => $faker->text(500), 'facebook_link' => $faker->url(), 'x_link' => $faker->url(), 'website_link' => $faker->url()],
+            ['name' => 'MSW Global', 'description' => $faker->text(500), 'facebook_link' => $faker->url(), 'x_link' => $faker->url(), 'website_link' => $faker->url()],
+            ['name' => 'HWG', 'description' => $faker->text(500), 'facebook_link' => $faker->url(), 'x_link' => $faker->url(), 'website_link' => $faker->url()],
+            ['name' => 'OBKG', 'description' => $faker->text(500), 'facebook_link' => $faker->url(), 'x_link' => $faker->url(), 'website_link' => $faker->url()],
+            ['name' => 'PT OSI', 'description' => $faker->text(500), 'facebook_link' => $faker->url(), 'x_link' => $faker->url(), 'website_link' => $faker->url()],
         ]);
     }
 }

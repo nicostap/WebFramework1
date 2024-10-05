@@ -17,6 +17,7 @@ class CreateEventCategoriesTable extends Migration
             $table->string('name');
             $table->timestamp('created_at')->default(Carbon::now());
             $table->timestamp('updated_at')->default(Carbon::now());
+            $table->boolean('active')->default(1);
         });
     }
 

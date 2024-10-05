@@ -16,7 +16,7 @@
             class="border border-gray-300 rounded w-full p-2" required>
     </div>
 
-    <div class="grid grid-cols-2 g-5 text-center">
+    <div class="grid grid-cols-2 gap-5 text-center">
         <button type="submit"
             class="bg-green-500 text-white px-4 py-2 rounded">{{ isset($category) ? 'Update' : 'Save' }}</button>
         <a href="{{ route('event_categories.index') }}"

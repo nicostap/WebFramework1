@@ -22,7 +22,15 @@ class UpdateEventCategoriesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+        ];
+    }
+
+    public function params(): array
+    {
+        return [
+            'name.required' => 'The event category name is required.',
+            'name.max' => 'The event name imay not be greater than 255',
         ];
     }
 }

@@ -19,9 +19,9 @@ class CreateOrganizersTable extends Migration
             $table->string('facebook_link')->nullable();
             $table->string('x_link')->nullable();
             $table->string('website_link')->nullable();
-            $table->boolean('active')->default(1);
             $table->timestamp('created_at')->default(Carbon::now());
             $table->timestamp('updated_at')->default(Carbon::now());
+            $table->boolean('active')->default(1);
         });
     }
 

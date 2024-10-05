@@ -12,57 +12,47 @@ class OrganizersController extends Controller
 {
     public function index()
     {
-        $organizers = Organizers::all();
-        return view("organizers.index", [
+        $organizers = Organizers::active()->orderBy('name')->get();
+        return view('organizers.index', [
             'organizers' => $organizers,
         ]);
     }
 
     public function create()
     {
-        return view("organizers.form");
+        return view('organizers.form');
     }
 
     public function store(StoreOrganizersRequest $request)
     {
-        Organizers::create([
-            'name' => $request->name,
-            'facebook' => $request->facebook,
-            'website' => $request->website,
-            'about' => $request->about,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-        ]);
+        $validated = $request->validate($request->rules(), $request->params());
+
+        Organizers::create($validated);
 
         FacadesSession::flash('message', 'Organizer successfully created!');
         FacadesSession::flash('alert-class', 'success');
         return redirect()->route('organizers.index');
     }
 
-    public function show($id)
+    public function show(Organizers $organizer)
     {
-        $organizer = Organizers::findOrFail($id);
         return view('organizers.organizer', ['organizer' => $organizer]);
     }
 
 
-    public function edit($id)
+    public function edit(Organizers $organizer)
     {
-        $organizer = Organizers::findOrFail($id);
-        return view("organizers.form", [
+        return view('organizers.form', [
             'organizer' => $organizer,
         ]);
     }
 
     public function update(UpdateOrganizersRequest $request, Organizers $organizer)
     {
-        $organizer->update([
-            'name' => $request->name,
-            'facebook' => $request->facebook,
-            'website' => $request->website,
-            'about' => $request->about,
-            'updated_at' => Carbon::now(),
-        ]);
+        $validated = $request->validate($request->rules(), $request->params());
+        $validated['updated_at'] = Carbon::now();
+
+        $organizer->update($validated);
 
         FacadesSession::flash('message', 'Organizer successfully updated!');
         FacadesSession::flash('alert-class', 'success');
@@ -71,7 +61,7 @@ class OrganizersController extends Controller
 
     public function destroy(Organizers $organizer)
     {
-        $organizer->delete();
+        $organizer->update(['active' => 0, 'updated_at' => Carbon::now()]);
 
         FacadesSession::flash('message', 'Organizer successfully deleted!');
         FacadesSession::flash('alert-class', 'success');
